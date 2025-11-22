@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ChevronDownIcon, AdjustmentsHorizontalIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Navigation from '../../components/Navigation'
 import ProductModal from '../../components/ProductModal'
+import { ShopifyService, ShopifyProduct, formatPrice } from '../../lib/shopify'
 
 const products = [
   {
@@ -130,15 +131,79 @@ const products = [
   }
 ]
 
+// Transform Shopify product to app format
+const transformShopifyProduct = (shopifyProduct: ShopifyProduct) => {
+  const firstVariant = shopifyProduct.variants.edges[0]?.node
+  const price = firstVariant ? parseFloat(firstVariant.price.amount) : 0
+  const compareAtPrice = firstVariant?.compareAtPrice ? parseFloat(firstVariant.compareAtPrice.amount) : undefined
+  
+  return {
+    id: shopifyProduct.id,
+    name: shopifyProduct.title,
+    type: shopifyProduct.tags.includes('set') ? 'SET' : 'PRODUCT',
+    price,
+    compareAtPrice,
+    colors: shopifyProduct.variants.edges.length,
+    isNew: shopifyProduct.tags.includes('new'),
+    image: shopifyProduct.images.edges[0]?.node.url || '',
+    images: shopifyProduct.images.edges.map(edge => edge.node.url),
+    sizes: shopifyProduct.variants.edges.map(edge => 
+      edge.node.selectedOptions.find(option => option.name === 'Size')?.value || 'OS'
+    ).filter((v, i, a) => a.indexOf(v) === i), // Remove duplicates
+    description: shopifyProduct.description,
+    details: [
+      'Premium quality materials',
+      'Designed for comfort and style',
+      'Available in multiple sizes',
+      'Fast and free shipping'
+    ],
+    inStock: shopifyProduct.variants.edges.some(edge => edge.node.availableForSale),
+    stockLevel: shopifyProduct.variants.edges.some(edge => edge.node.availableForSale) ? 'IN STOCK' : 'OUT OF STOCK',
+    handle: shopifyProduct.handle,
+    tags: shopifyProduct.tags
+  }
+}
+
 const ShopPage = () => {
   const [showFilters, setShowFilters] = useState(true)
   const [sortBy, setSortBy] = useState('FEATURED')
   const [selectedCollection, setSelectedCollection] = useState('SETS')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
+  const [shopifyProducts, setShopifyProducts] = useState<ShopifyProduct[]>([])
+  const [loading, setLoading] = useState(true)
+  const [displayProducts, setDisplayProducts] = useState<any[]>(products)
 
   const collections = ['SETS', 'BOTTOMS', 'TOPS', 'ACCESSORIES']
   const sizes = ['XS', 'S', 'M', 'L']
+
+  // Fetch Shopify products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true)
+      try {
+        const shopifyData = await ShopifyService.getProducts(20)
+        setShopifyProducts(shopifyData)
+        
+        if (shopifyData.length > 0) {
+          // Use Shopify products if available
+          const transformedProducts = shopifyData.map(transformShopifyProduct)
+          setDisplayProducts(transformedProducts)
+        } else {
+          // Fall back to mock data if Shopify is empty
+          setDisplayProducts(products)
+        }
+      } catch (error) {
+        console.error('Error fetching Shopify products:', error)
+        // Fall back to mock data on error
+        setDisplayProducts(products)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProducts()
+  }, [])
 
   const handleProductClick = (product: any) => {
     console.log('Product clicked:', product)
@@ -243,16 +308,38 @@ const ShopPage = () => {
                 </div>
               </div>
 
+              {/* Loading State */}
+              {loading && (
+                <div className="flex items-center justify-center py-20">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-accent mx-auto mb-4"></div>
+                    <p className="text-gray-400">Loading products...</p>
+                  </div>
+                </div>
+              )}
+
               {/* Products Grid */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className={`grid gap-6 ${
-                  showFilters ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4'
-                }`}
-              >
-                {products.map((product, index) => (
+              {!loading && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className={`grid gap-6 ${
+                    showFilters ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4'
+                  }`}
+                >
+                  {displayProducts.length === 0 ? (
+                    <div className="col-span-full text-center py-20">
+                      <p className="text-gray-400 text-lg mb-4">No products found</p>
+                      <p className="text-sm text-gray-500">
+                        {shopifyProducts.length === 0 
+                          ? 'Add products to your Shopify store to see them here!'
+                          : 'Try adjusting your filters'
+                        }
+                      </p>
+                    </div>
+                  ) : (
+                    displayProducts.map((product, index) => (
                   <motion.div
                     key={product.id}
                     initial={{ opacity: 0, y: 30 }}
@@ -262,15 +349,25 @@ const ShopPage = () => {
                     onClick={() => handleProductClick(product)}
                   >
                     <div className="relative aspect-[3/4] bg-brand-gray rounded-lg overflow-hidden mb-4">
-                      {/* Product Image Placeholder */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center text-gray-500">
-                            <div className="text-lg font-medium">{product.name}</div>
-                            <div className="text-sm">{product.type}</div>
+                      {/* Product Image */}
+                      {product.image ? (
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800">
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center text-gray-500">
+                              <div className="text-lg font-medium">{product.name}</div>
+                              <div className="text-sm">{product.type}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                       
                       {/* NEW Badge */}
                       {product.isNew && (
@@ -287,14 +384,25 @@ const ShopPage = () => {
                     <div className="text-center">
                       <h3 className="text-lg font-light text-white mb-1">{product.name}</h3>
                       <p className="text-sm text-gray-400 mb-2">{product.type}</p>
-                      <p className="text-lg font-medium text-white mb-2">£{product.price}</p>
+                      <div className="mb-2">
+                        {product.compareAtPrice && product.compareAtPrice > product.price ? (
+                          <div className="flex items-center justify-center space-x-2">
+                            <span className="text-lg font-medium text-brand-accent">${product.price}</span>
+                            <span className="text-sm text-gray-400 line-through">${product.compareAtPrice}</span>
+                          </div>
+                        ) : (
+                          <p className="text-lg font-medium text-white">${product.price}</p>
+                        )}
+                      </div>
                       <p className="text-xs text-gray-400 uppercase tracking-wide">
                         {product.colors} COLOUR{product.colors !== 1 ? 'S' : ''} AVAILABLE
                       </p>
                     </div>
                   </motion.div>
-                ))}
-              </motion.div>
+                    ))
+                  )}
+                </motion.div>
+              )}
             </div>
           </div>
         </div>

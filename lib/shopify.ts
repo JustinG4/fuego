@@ -1,32 +1,64 @@
-import Client from 'shopify-buy'
+import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
-const domain = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || ''
-const storefrontAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
+const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!;
+const storefrontAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
-export const shopifyClient = Client.buildClient({
-  domain,
-  storefrontAccessToken,
-})
+if (!domain || !storefrontAccessToken) {
+  throw new Error('Missing Shopify environment variables');
+}
+
+export const shopifyClient = createStorefrontApiClient({
+  storeDomain: domain,
+  apiVersion: '2025-01',
+  publicAccessToken: storefrontAccessToken,
+});
 
 export interface ShopifyProduct {
-  id: string
-  title: string
-  description: string
-  handle: string
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
   images: {
-    src: string
-    altText: string
-  }[]
+    edges: Array<{
+      node: {
+        url: string;
+        altText?: string;
+      };
+    }>;
+  };
   variants: {
-    id: string
-    title: string
-    price: number
-    compareAtPrice?: number
-    available: boolean
-  }[]
-  vendor: string
-  productType: string
-  tags: string[]
+    edges: Array<{
+      node: {
+        id: string;
+        price: {
+          amount: string;
+          currencyCode: string;
+        };
+        compareAtPrice?: {
+          amount: string;
+          currencyCode: string;
+        };
+        availableForSale: boolean;
+        selectedOptions: Array<{
+          name: string;
+          value: string;
+        }>;
+      };
+    }>;
+  };
+  tags: string[];
+}
+
+export interface ShopifyCollection {
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
+  products: {
+    edges: Array<{
+      node: ShopifyProduct;
+    }>;
+  };
 }
 
 export interface CheckoutLineItem {
@@ -34,64 +66,177 @@ export interface CheckoutLineItem {
   quantity: number
 }
 
+export const PRODUCTS_QUERY = `
+  query getProducts($first: Int!) {
+    products(first: $first) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          tags
+          images(first: 10) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+          variants(first: 10) {
+            edges {
+              node {
+                id
+                price {
+                  amount
+                  currencyCode
+                }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
+                availableForSale
+                selectedOptions {
+                  name
+                  value
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const COLLECTION_QUERY = `
+  query getCollection($handle: String!, $first: Int!) {
+    collection(handle: $handle) {
+      id
+      title
+      handle
+      description
+      products(first: $first) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            tags
+            images(first: 10) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+            variants(first: 10) {
+              edges {
+                node {
+                  id
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
+                  availableForSale
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const PRODUCT_BY_HANDLE_QUERY = `
+  query getProductByHandle($handle: String!) {
+    product(handle: $handle) {
+      id
+      title
+      handle
+      description
+      tags
+      images(first: 10) {
+        edges {
+          node {
+            url
+            altText
+          }
+        }
+      }
+      variants(first: 10) {
+        edges {
+          node {
+            id
+            price {
+              amount
+              currencyCode
+            }
+            compareAtPrice {
+              amount
+              currencyCode
+            }
+            availableForSale
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export class ShopifyService {
-  static async getProducts(): Promise<ShopifyProduct[]> {
+  static async getProducts(first = 20): Promise<ShopifyProduct[]> {
     try {
-      const products = await shopifyClient.product.fetchAll()
-      return products.map((product: any) => ({
-        id: product.id,
-        title: product.title,
-        description: product.description,
-        handle: product.handle,
-        images: product.images.map((img: any) => ({
-          src: img.src,
-          altText: img.altText || product.title,
-        })),
-        variants: product.variants.map((variant: any) => ({
-          id: variant.id,
-          title: variant.title,
-          price: parseFloat(variant.price),
-          compareAtPrice: variant.compareAtPrice ? parseFloat(variant.compareAtPrice) : undefined,
-          available: variant.available,
-        })),
-        vendor: product.vendor,
-        productType: product.productType,
-        tags: product.tags,
-      }))
+      const { data } = await shopifyClient.request(PRODUCTS_QUERY, {
+        variables: { first },
+      });
+      
+      return data.products.edges.map((edge: any) => edge.node);
     } catch (error) {
-      console.error('Error fetching products:', error)
-      return []
+      console.error('Error fetching products:', error);
+      return [];
     }
   }
 
   static async getProductByHandle(handle: string): Promise<ShopifyProduct | null> {
     try {
-      const product = await shopifyClient.product.fetchByHandle(handle)
-      if (!product) return null
-
-      return {
-        id: product.id,
-        title: product.title,
-        description: product.description,
-        handle: product.handle,
-        images: product.images.map((img: any) => ({
-          src: img.src,
-          altText: img.altText || product.title,
-        })),
-        variants: product.variants.map((variant: any) => ({
-          id: variant.id,
-          title: variant.title,
-          price: parseFloat(variant.price),
-          compareAtPrice: variant.compareAtPrice ? parseFloat(variant.compareAtPrice) : undefined,
-          available: variant.available,
-        })),
-        vendor: product.vendor,
-        productType: product.productType,
-        tags: product.tags,
-      }
+      const { data } = await shopifyClient.request(PRODUCT_BY_HANDLE_QUERY, {
+        variables: { handle },
+      });
+      
+      return data.product;
     } catch (error) {
-      console.error('Error fetching product by handle:', error)
-      return null
+      console.error('Error fetching product by handle:', error);
+      return null;
+    }
+  }
+
+  static async getCollection(handle: string, first = 20): Promise<ShopifyCollection | null> {
+    try {
+      const { data } = await shopifyClient.request(COLLECTION_QUERY, {
+        variables: { handle, first },
+      });
+      
+      return data.collection;
+    } catch (error) {
+      console.error('Error fetching collection:', error);
+      return null;
     }
   }
 
@@ -158,4 +303,11 @@ export class ShopifyService {
       throw new Error('Failed to remove items from checkout')
     }
   }
+}
+
+export function formatPrice(price: string, currencyCode: string): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currencyCode,
+  }).format(parseFloat(price));
 }
