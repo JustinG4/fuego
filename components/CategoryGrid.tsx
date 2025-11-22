@@ -3,41 +3,70 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import ProductModal from './ProductModal'
 
 const categories = [
-  { title: 'MID SHORTS', href: '/shop/shorts' },
-  { title: 'CYCLING SHORTS', href: '/shop/cycling' },
+  { title: 'FUEGO SET', href: '/shop/fuego-set' },
+  { title: 'INFERNO SET', href: '/shop/inferno-set' },
   { title: 'LAYER JACKET', href: '/shop/jackets' },
   { title: 'RAIN PARKA', href: '/shop/outerwear' },
 ]
 
-const mockProduct = {
-  name: 'Salt Romper',
-  price: 220.00,
-  compareAtPrice: null,
-  images: [
-    '/images/salt-romper-main.jpg',
-    '/images/salt-romper-back.jpg',
-    '/images/salt-romper-detail.jpg',
-  ],
-  sizes: ['XS', 'S', 'M', 'L'],
-  description: 'Designed for effortless movement, we use seaweed-fiber fabric that is naturally anti-bacterial and chlorine resistant. This piece resembles a form-fitting suit made for swimming. Because you know your girl never is off the clock.',
-  details: [
-    'High-quality seaweed fiber construction',
-    'Anti-bacterial and chlorine resistant', 
-    'Form-fitting design for active wear',
-    'Sustainable materials'
-  ],
-  inStock: true,
-  stockLevel: 'ONLY 3 LEFT IN STOCK'
+const products = {
+  'FUEGO SET': {
+    name: 'Fuego Set',
+    price: 180.00,
+    compareAtPrice: 220.00,
+    images: [
+      '/fuego_a.png',
+      '/fuego_b.png',
+      '/fuego_c.png',
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    description: 'Ignite your workout with the Fuego Set. Designed for high-intensity training and maximum performance. This premium set combines style with functionality for those who earn their drip.',
+    details: [
+      'Premium moisture-wicking fabric',
+      'Four-way stretch for maximum mobility', 
+      'Anti-odor technology',
+      'Seamless construction for comfort',
+      'Reflective logo details'
+    ],
+    inStock: true,
+    stockLevel: 'LIMITED EDITION'
+  },
+  'INFERNO SET': {
+    name: 'Inferno Set',
+    price: 200.00,
+    compareAtPrice: 250.00,
+    images: [
+      '/inferno_a.png',
+      '/inferno_b.png',
+      '/inferno_c.png',
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    description: 'Turn up the heat with the Inferno Set. Built for those who push beyond limits and redefine what\'s possible. Earn your style through pure dedication and fire.',
+    details: [
+      'Elite performance fabric blend',
+      'Temperature-regulating technology', 
+      'Compression zones for support',
+      'Quick-dry material',
+      'Premium construction'
+    ],
+    inStock: true,
+    stockLevel: 'EXCLUSIVE COLLECTION'
+  }
 }
 
 function CategoryGrid() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
   
-  const handleCategoryClick = () => {
-    setIsModalOpen(true)
+  const handleCategoryClick = (categoryTitle) => {
+    if (products[categoryTitle]) {
+      setSelectedProduct(products[categoryTitle])
+      setIsModalOpen(true)
+    }
   }
 
   return (
@@ -48,7 +77,7 @@ function CategoryGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-12 mt-8"
         >
           <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">
             SHOP BY CATEGORY
@@ -64,7 +93,7 @@ function CategoryGrid() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="group relative overflow-hidden bg-brand-gray aspect-[3/4] cursor-pointer"
-              onClick={handleCategoryClick}
+              onClick={() => handleCategoryClick(category.title)}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 transition-transform duration-700 group-hover:scale-110"></div>
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
@@ -124,11 +153,13 @@ function CategoryGrid() {
         </div>
       </div>
 
-      <ProductModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        product={mockProduct}
-      />
+      {selectedProduct && (
+        <ProductModal 
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          product={selectedProduct}
+        />
+      )}
     </section>
   )
 }

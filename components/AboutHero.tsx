@@ -1,10 +1,42 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowRightIcon, LightBulbIcon, TrophyIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
 
 const AboutHero = () => {
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const slides = [
+    {
+      title: "Work. Win.",
+      subtitle: "Wear",
+      description: "We're building the world's first milestone-verified commerce engine—software that lets any brand gate exclusive drops behind real-world achievements.",
+      detail: "This transforms physical effort, engagement, and lifestyle milestones into unlockable access, creating a new category of \"earned commerce\" that makes customers work—not just spend—for what they wear."
+    },
+    {
+      title: "Earn. Your.",
+      subtitle: "Drip",
+      description: "Fashion should represent achievement, not just purchasing power. When you earn something through effort, it carries deeper meaning than anything money alone can buy.",
+      detail: "Every piece tells a story of dedication, progress, and the sweat that went into unlocking it. This is fashion with purpose."
+    },
+    {
+      title: "Sweat. For.",
+      subtitle: "Style",
+      description: "Transform your workouts, achievements, and lifestyle milestones into exclusive access to premium fashion pieces.",
+      detail: "The harder you work, the more exclusive your wardrobe becomes. It's not about what you can afford—it's about what you've earned."
+    }
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length)
+    }, 5000) // Auto-advance every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [slides.length])
+
   return (
     <div className="pt-16 min-h-screen bg-brand-black text-white">
       {/* Hero Section with Image Spot */}
@@ -22,29 +54,58 @@ const AboutHero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-8 leading-tight">
-                Work. Win.
+              <motion.h1 
+                key={`title-${activeSlide}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-5xl md:text-7xl font-light tracking-tight mb-8 leading-tight"
+              >
+                {slides[activeSlide].title}
                 <br />
-                <span className="text-red-500">Wear</span>
-              </h1>
+                <span className="text-red-500">{slides[activeSlide].subtitle}</span>
+              </motion.h1>
               
-              <p className="text-xl md:text-2xl text-gray-300 font-light mb-8 leading-relaxed">
-                We're building the world's first milestone-verified commerce engine—software that lets any brand gate exclusive drops behind real-world achievements.
-              </p>
+              <motion.p 
+                key={`desc-${activeSlide}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-xl md:text-2xl text-gray-300 font-light mb-8 leading-relaxed"
+              >
+                {slides[activeSlide].description}
+              </motion.p>
 
-              <p className="text-lg text-gray-400 mb-12 leading-relaxed">
-                This transforms physical effort, engagement, and lifestyle milestones into unlockable access, creating a new category of <strong className="text-white">"earned commerce"</strong> that makes customers work—not just spend—for what they wear.
-              </p>
+              <motion.p 
+                key={`detail-${activeSlide}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-lg text-gray-400 mb-12 leading-relaxed"
+              >
+                {slides[activeSlide].detail}
+              </motion.p>
 
-              <motion.button
+              {/* Navigation Dots */}
+              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="group inline-flex items-center btn-primary"
+                className="flex items-center space-x-4"
               >
-                Start Your Journey
-                <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </motion.button>
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeSlide === index
+                        ? 'bg-brand-accent scale-110'
+                        : 'bg-gray-600 hover:bg-gray-400'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -174,71 +235,6 @@ const AboutHero = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-brand-gray">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-light tracking-tight mb-8">
-              Redefining Value
-            </h2>
-            <p className="text-xl text-gray-300">
-              When customers work for access, they value it more deeply
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center p-6 bg-brand-black rounded-lg border border-brand-light-gray"
-            >
-              <div className="text-3xl font-bold text-brand-accent mb-2">90%</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Higher Retention</div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center p-6 bg-brand-black rounded-lg border border-brand-light-gray"
-            >
-              <div className="text-3xl font-bold text-brand-accent mb-2">3x</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Brand Loyalty</div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center p-6 bg-brand-black rounded-lg border border-brand-light-gray"
-            >
-              <div className="text-3xl font-bold text-brand-accent mb-2">5x</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Engagement</div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="text-center p-6 bg-brand-black rounded-lg border border-brand-light-gray"
-            >
-              <div className="text-3xl font-bold text-brand-accent mb-2">∞</div>
-              <div className="text-sm text-gray-400 uppercase tracking-wide">Possibilities</div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

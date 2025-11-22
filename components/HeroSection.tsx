@@ -14,11 +14,11 @@ const HeroSection = () => {
         transition={{ duration: 0.8 }}
         className="w-1/2 relative overflow-hidden"
       >
-        {/* Fire Background */}
+        {/* Kettlebell Background */}
         <div className="absolute inset-0">
           <Image
-            src="/fire_bg.jpg"
-            alt="Fire Background"
+            src="/kettlebell.jpg"
+            alt="Kettlebell Background"
             fill
             className="object-cover"
             priority
@@ -37,7 +37,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight leading-tight"
             >
-              Burn to Earn.
+              You can't <em>Drip</em> without <em>Sweat</em>.
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -45,7 +45,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <Link href="/shop" className="btn-primary">
-                SHOP NOW
+                SHOP THE COLLECTION
               </Link>
             </motion.div>
           </div>
