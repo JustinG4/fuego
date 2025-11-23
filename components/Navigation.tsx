@@ -38,7 +38,7 @@ const Navigation = () => {
           <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
             <Link href="/">
               <Image
-                src="/center_logo.png"
+                src="/flame_logo_transparent.png"
                 alt="Brand Logo"
                 width={64}
                 height={64}

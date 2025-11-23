@@ -76,7 +76,7 @@ const ProductModal = ({ isOpen, onClose, product }: ProductModalProps) => {
               {/* Logo in center */}
               <div className="mx-8">
                 <Image
-                  src="/center_logo.png"
+                  src="/flame_logo_transparent.png"
                   alt="Brand Logo"
                   width={48}
                   height={48}
@@ -104,35 +104,61 @@ const ProductModal = ({ isOpen, onClose, product }: ProductModalProps) => {
                 {/* Main Display Image */}
                 <button
                   onClick={() => setSelectedImage(0)}
-                  className={`flex-1 relative bg-gradient-to-br from-gray-600 to-gray-800 overflow-hidden transition-all duration-300 hover:opacity-90 ${
+                  className={`flex-1 relative bg-brand-gray overflow-hidden transition-all duration-300 hover:opacity-90 ${
                     selectedImage === 0 ? 'ring-2 ring-brand-accent' : ''
                   }`}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center text-gray-400">
-                      <div className="text-xl font-light mb-1">{product.name}</div>
-                      <div className="text-sm">Main View</div>
+                  {product.images && product.images.length > 0 ? (
+                    <Image
+                      src={product.images[selectedImage] || product.images[0]}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-600 to-gray-800">
+                      <div className="text-center text-gray-400">
+                        <div className="text-xl font-light mb-1">{product.name}</div>
+                        <div className="text-sm">Main View</div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </button>
 
-                {/* Bottom Row - Two Thumbnail Images */}
+                {/* Bottom Row - Thumbnail Images */}
                 <div className="flex h-32">
-                  {[0, 1].map((index) => (
+                  {product.images && product.images.slice(1, 3).map((image, index) => (
                     <button
                       key={index}
                       onMouseEnter={() => setSelectedImage(index + 1)}
                       onClick={() => setSelectedImage(index + 1)}
-                      className={`flex-1 relative bg-gradient-to-br from-gray-700 to-gray-900 overflow-hidden transition-all duration-300 hover:opacity-80 ${
+                      className={`flex-1 relative bg-brand-gray overflow-hidden transition-all duration-300 hover:opacity-80 ${
                         selectedImage === index + 1 ? 'ring-2 ring-brand-accent' : ''
                       }`}
                     >
+                      <Image
+                        src={image}
+                        alt={`${product.name} view ${index + 2}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    </button>
+                  ))}
+                  
+                  {/* Fill remaining slots if less than 2 additional images */}
+                  {product.images && product.images.length < 3 && Array.from({ length: 3 - product.images.length }).map((_, index) => (
+                    <div
+                      key={`placeholder-${index}`}
+                      className="flex-1 relative bg-gradient-to-br from-gray-700 to-gray-900 overflow-hidden"
+                    >
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center text-gray-400">
-                          <div className="text-xs font-medium">View {index + 2}</div>
+                          <div className="text-xs font-medium">View {product.images.length + index + 1}</div>
                         </div>
                       </div>
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
