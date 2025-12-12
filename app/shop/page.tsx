@@ -27,7 +27,31 @@ const products = [
       'Sustainable materials'
     ],
     inStock: true,
-    stockLevel: 'ONLY 3 LEFT IN STOCK'
+    stockLevel: 'ONLY 3 LEFT IN STOCK',
+    customizables: [
+      {
+        name: 'Colorway',
+        type: 'color',
+        options: [
+          { name: 'Flame Red', value: '#FF4444' },
+          { name: 'Ocean Blue', value: '#4488FF' },
+          { name: 'Sunset Orange', value: '#FF8844' }
+        ],
+        requiredChallenge: 'Complete 5K Run',
+        isUnlocked: true
+      },
+      {
+        name: 'Pattern',
+        type: 'text',
+        options: [
+          { name: 'Solid', value: 'solid' },
+          { name: 'Striped', value: 'striped' },
+          { name: 'Gradient', value: 'gradient' }
+        ],
+        requiredChallenge: 'Complete 10 Workouts',
+        isUnlocked: false
+      }
+    ]
   },
   {
     id: 2,
@@ -160,7 +184,31 @@ const transformShopifyProduct = (shopifyProduct: ShopifyProduct) => {
     inStock: shopifyProduct.variants.edges.some(edge => edge.node.availableForSale),
     stockLevel: shopifyProduct.variants.edges.some(edge => edge.node.availableForSale) ? 'IN STOCK' : 'OUT OF STOCK',
     handle: shopifyProduct.handle,
-    tags: shopifyProduct.tags
+    tags: shopifyProduct.tags,
+    customizables: [
+      {
+        name: 'Colorway',
+        type: 'color' as const,
+        options: [
+          { name: 'Flame Red', value: '#FF4444' },
+          { name: 'Ocean Blue', value: '#4488FF' },
+          { name: 'Forest Green', value: '#44AA44' }
+        ],
+        requiredChallenge: 'Complete 5K Run',
+        isUnlocked: true
+      },
+      {
+        name: 'Exclusives',
+        type: 'material' as const,
+        options: [
+          { name: 'Cotton', value: 'cotton' },
+          { name: 'Performance', value: 'performance' },
+          { name: 'Premium Blend', value: 'premium' }
+        ],
+        requiredChallenge: 'Burn 1000 Calories',
+        isUnlocked: true
+      }
+    ]
   }
 }
 
@@ -423,6 +471,7 @@ const ShopPage = () => {
             details: selectedProduct.details,
             inStock: selectedProduct.inStock,
             stockLevel: selectedProduct.stockLevel,
+            customizables: selectedProduct.customizables,
           }}
         />
       )}

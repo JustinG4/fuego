@@ -6,6 +6,20 @@ import Image from 'next/image'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../hooks/useCart'
 
+interface CustomizableOption {
+  name: string
+  value: string
+  previewImage?: string
+}
+
+interface Customizable {
+  name: string
+  type: 'color' | 'text' | 'logo' | 'material'
+  options: CustomizableOption[]
+  requiredChallenge: string
+  isUnlocked: boolean
+}
+
 interface ProductModalProps {
   isOpen: boolean
   onClose: () => void
@@ -19,6 +33,8 @@ interface ProductModalProps {
     details: string[]
     inStock: boolean
     stockLevel?: string
+    customizables?: Customizable[]
+    collection?: string
   }
 }
 
@@ -26,7 +42,9 @@ const ProductModal = ({ isOpen, onClose, product }: ProductModalProps) => {
   const [selectedSize, setSelectedSize] = useState('')
   const [showDescription, setShowDescription] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+  const [showCustomizables, setShowCustomizables] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [selectedCustomizations, setSelectedCustomizations] = useState<Record<string, string>>({})
   const { addToCart, isLoading } = useCart()
 
   // Reset state when modal opens
@@ -223,6 +241,62 @@ const ProductModal = ({ isOpen, onClose, product }: ProductModalProps) => {
                     </div>
                   </div>
 
+                  {/* Customizables Section */}
+                  {product.customizables && product.customizables.length > 0 && (
+                    <div className="mb-4 mt-6">
+                      <label className="block text-white text-sm font-medium mb-2 tracking-wide uppercase">
+                        CUSTOMIZATION
+                      </label>
+                      <div className="space-y-3">
+                        {product.customizables.map((customizable, index) => (
+                          <div key={index} className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-white text-xs font-medium uppercase tracking-wide">
+                                {customizable.name}
+                              </span>
+                              {!customizable.isUnlocked && (
+                                <span className="text-xs text-gray-400 italic">
+                                  🔒 {customizable.requiredChallenge}
+                                </span>
+                              )}
+                            </div>
+                            
+                            {customizable.isUnlocked ? (
+                              <div className="grid grid-cols-3 gap-2">
+                                {customizable.options.map((option, optionIndex) => (
+                                  <button
+                                    key={optionIndex}
+                                    onClick={() => setSelectedCustomizations(prev => ({
+                                      ...prev,
+                                      [customizable.name]: option.value
+                                    }))}
+                                    className={`p-2 border text-xs font-medium tracking-wide transition-all duration-300 ${
+                                      customizable.name === 'Exclusives'
+                                        ? selectedCustomizations[customizable.name] === option.value
+                                          ? 'border-brand-accent bg-gradient-to-br from-red-900 to-red-800 text-white'
+                                          : 'border-gray-600 text-gray-300 hover:border-red-700 bg-gradient-to-br from-gray-900 to-red-900/30'
+                                        : selectedCustomizations[customizable.name] === option.value
+                                          ? 'border-brand-accent bg-brand-accent text-black'
+                                          : 'border-gray-600 text-gray-300 hover:border-gray-400'
+                                    }`}
+                                  >
+                                    {option.name}
+                                  </button>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="p-2 border border-gray-700 bg-gray-900/50 rounded">
+                                <p className="text-xs text-gray-500 text-center">
+                                  Complete "{customizable.requiredChallenge}" to unlock
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Stock Status */}
                   {product.stockLevel && (
                     <div className="mb-3">
@@ -298,6 +372,7 @@ const ProductModal = ({ isOpen, onClose, product }: ProductModalProps) => {
                       </ul>
                     )}
                   </div>
+
                 </div>
               </div>
             </motion.div>
