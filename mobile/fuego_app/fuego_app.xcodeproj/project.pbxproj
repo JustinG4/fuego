@@ -1,0 +1,748 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B913DD902EEBE73C0037A9E9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B913DD8F2EEBE73C0037A9E9 /* WidgetKit.framework */; };
+		B913DD922EEBE73C0037A9E9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B913DD912EEBE73C0037A9E9 /* SwiftUI.framework */; };
+		B913DDA32EEBE73D0037A9E9 /* FuegoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B913DD8D2EEBE73C0037A9E9 /* FuegoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B913DDA12EEBE73D0037A9E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B933B69C2ED374890073FE1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B913DD8C2EEBE73C0037A9E9;
+			remoteInfo = FuegoWidgetExtension;
+		};
+		B933B6BB2ED3748A0073FE1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B933B69C2ED374890073FE1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B933B6A32ED374890073FE1C;
+			remoteInfo = fuego_app;
+		};
+		B933B6C52ED3748A0073FE1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B933B69C2ED374890073FE1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B933B6A32ED374890073FE1C;
+			remoteInfo = fuego_app;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B913DDA42EEBE73D0037A9E9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B913DDA32EEBE73D0037A9E9 /* FuegoWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B913DD8D2EEBE73C0037A9E9 /* FuegoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FuegoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B913DD8F2EEBE73C0037A9E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B913DD912EEBE73C0037A9E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B933B6A42ED374890073FE1C /* fuego_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fuego_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B933B6BA2ED3748A0073FE1C /* fuego_appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fuego_appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B933B6C42ED3748A0073FE1C /* fuego_appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fuego_appUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B913DDA82EEBE73D0037A9E9 /* Exceptions for "FuegoWidget" folder in "FuegoWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B913DD8C2EEBE73C0037A9E9 /* FuegoWidgetExtension */;
+		};
+		B933B6CC2ED3748A0073FE1C /* Exceptions for "fuego_app" folder in "fuego_app" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B933B6A32ED374890073FE1C /* fuego_app */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B913DD932EEBE73C0037A9E9 /* FuegoWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B913DDA82EEBE73D0037A9E9 /* Exceptions for "FuegoWidget" folder in "FuegoWidgetExtension" target */,
+			);
+			path = FuegoWidget;
+			sourceTree = "<group>";
+		};
+		B933B6A62ED374890073FE1C /* fuego_app */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B933B6CC2ED3748A0073FE1C /* Exceptions for "fuego_app" folder in "fuego_app" target */,
+			);
+			path = fuego_app;
+			sourceTree = "<group>";
+		};
+		B933B6BD2ED3748A0073FE1C /* fuego_appTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = fuego_appTests;
+			sourceTree = "<group>";
+		};
+		B933B6C72ED3748A0073FE1C /* fuego_appUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = fuego_appUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B913DD8A2EEBE73C0037A9E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B913DD922EEBE73C0037A9E9 /* SwiftUI.framework in Frameworks */,
+				B913DD902EEBE73C0037A9E9 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6A12ED374890073FE1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6B72ED3748A0073FE1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6C12ED3748A0073FE1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B913DD8E2EEBE73C0037A9E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B913DD8F2EEBE73C0037A9E9 /* WidgetKit.framework */,
+				B913DD912EEBE73C0037A9E9 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B933B69B2ED374890073FE1C = {
+			isa = PBXGroup;
+			children = (
+				B933B6A62ED374890073FE1C /* fuego_app */,
+				B933B6BD2ED3748A0073FE1C /* fuego_appTests */,
+				B933B6C72ED3748A0073FE1C /* fuego_appUITests */,
+				B913DD932EEBE73C0037A9E9 /* FuegoWidget */,
+				B913DD8E2EEBE73C0037A9E9 /* Frameworks */,
+				B933B6A52ED374890073FE1C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B933B6A52ED374890073FE1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B933B6A42ED374890073FE1C /* fuego_app.app */,
+				B933B6BA2ED3748A0073FE1C /* fuego_appTests.xctest */,
+				B933B6C42ED3748A0073FE1C /* fuego_appUITests.xctest */,
+				B913DD8D2EEBE73C0037A9E9 /* FuegoWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B913DD8C2EEBE73C0037A9E9 /* FuegoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B913DDA72EEBE73D0037A9E9 /* Build configuration list for PBXNativeTarget "FuegoWidgetExtension" */;
+			buildPhases = (
+				B913DD892EEBE73C0037A9E9 /* Sources */,
+				B913DD8A2EEBE73C0037A9E9 /* Frameworks */,
+				B913DD8B2EEBE73C0037A9E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B913DD932EEBE73C0037A9E9 /* FuegoWidget */,
+			);
+			name = FuegoWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FuegoWidgetExtension;
+			productReference = B913DD8D2EEBE73C0037A9E9 /* FuegoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B933B6A32ED374890073FE1C /* fuego_app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B933B6CD2ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_app" */;
+			buildPhases = (
+				B933B6A02ED374890073FE1C /* Sources */,
+				B933B6A12ED374890073FE1C /* Frameworks */,
+				B933B6A22ED374890073FE1C /* Resources */,
+				B913DDA42EEBE73D0037A9E9 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B913DDA22EEBE73D0037A9E9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B933B6A62ED374890073FE1C /* fuego_app */,
+			);
+			name = fuego_app;
+			packageProductDependencies = (
+			);
+			productName = fuego_app;
+			productReference = B933B6A42ED374890073FE1C /* fuego_app.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B933B6B92ED3748A0073FE1C /* fuego_appTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B933B6D22ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_appTests" */;
+			buildPhases = (
+				B933B6B62ED3748A0073FE1C /* Sources */,
+				B933B6B72ED3748A0073FE1C /* Frameworks */,
+				B933B6B82ED3748A0073FE1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B933B6BC2ED3748A0073FE1C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B933B6BD2ED3748A0073FE1C /* fuego_appTests */,
+			);
+			name = fuego_appTests;
+			packageProductDependencies = (
+			);
+			productName = fuego_appTests;
+			productReference = B933B6BA2ED3748A0073FE1C /* fuego_appTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B933B6C32ED3748A0073FE1C /* fuego_appUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B933B6D52ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_appUITests" */;
+			buildPhases = (
+				B933B6C02ED3748A0073FE1C /* Sources */,
+				B933B6C12ED3748A0073FE1C /* Frameworks */,
+				B933B6C22ED3748A0073FE1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B933B6C62ED3748A0073FE1C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B933B6C72ED3748A0073FE1C /* fuego_appUITests */,
+			);
+			name = fuego_appUITests;
+			packageProductDependencies = (
+			);
+			productName = fuego_appUITests;
+			productReference = B933B6C42ED3748A0073FE1C /* fuego_appUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B933B69C2ED374890073FE1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					B913DD8C2EEBE73C0037A9E9 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					B933B6A32ED374890073FE1C = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					B933B6B92ED3748A0073FE1C = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = B933B6A32ED374890073FE1C;
+					};
+					B933B6C32ED3748A0073FE1C = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = B933B6A32ED374890073FE1C;
+					};
+				};
+			};
+			buildConfigurationList = B933B69F2ED374890073FE1C /* Build configuration list for PBXProject "fuego_app" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B933B69B2ED374890073FE1C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B933B6A52ED374890073FE1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B933B6A32ED374890073FE1C /* fuego_app */,
+				B933B6B92ED3748A0073FE1C /* fuego_appTests */,
+				B933B6C32ED3748A0073FE1C /* fuego_appUITests */,
+				B913DD8C2EEBE73C0037A9E9 /* FuegoWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B913DD8B2EEBE73C0037A9E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6A22ED374890073FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6B82ED3748A0073FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6C22ED3748A0073FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B913DD892EEBE73C0037A9E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6A02ED374890073FE1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6B62ED3748A0073FE1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B933B6C02ED3748A0073FE1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B913DDA22EEBE73D0037A9E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B913DD8C2EEBE73C0037A9E9 /* FuegoWidgetExtension */;
+			targetProxy = B913DDA12EEBE73D0037A9E9 /* PBXContainerItemProxy */;
+		};
+		B933B6BC2ED3748A0073FE1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B933B6A32ED374890073FE1C /* fuego_app */;
+			targetProxy = B933B6BB2ED3748A0073FE1C /* PBXContainerItemProxy */;
+		};
+		B933B6C62ED3748A0073FE1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B933B6A32ED374890073FE1C /* fuego_app */;
+			targetProxy = B933B6C52ED3748A0073FE1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B913DDA52EEBE73D0037A9E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X55LZG78ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FuegoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FuegoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-app.FuegoWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B913DDA62EEBE73D0037A9E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X55LZG78ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FuegoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FuegoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-app.FuegoWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B933B6CE2ED3748A0073FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = fuego_app/fuego_app.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X55LZG78ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fuego_app/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B933B6CF2ED3748A0073FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = fuego_app/fuego_app.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X55LZG78ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fuego_app/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B933B6D02ED3748A0073FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B933B6D12ED3748A0073FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B933B6D32ED3748A0073FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/fuego_app.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/fuego_app";
+			};
+			name = Debug;
+		};
+		B933B6D42ED3748A0073FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/fuego_app.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/fuego_app";
+			};
+			name = Release;
+		};
+		B933B6D62ED3748A0073FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = fuego_app;
+			};
+			name = Debug;
+		};
+		B933B6D72ED3748A0073FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jg.fuego-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = fuego_app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B913DDA72EEBE73D0037A9E9 /* Build configuration list for PBXNativeTarget "FuegoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B913DDA52EEBE73D0037A9E9 /* Debug */,
+				B913DDA62EEBE73D0037A9E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B933B69F2ED374890073FE1C /* Build configuration list for PBXProject "fuego_app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B933B6D02ED3748A0073FE1C /* Debug */,
+				B933B6D12ED3748A0073FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B933B6CD2ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B933B6CE2ED3748A0073FE1C /* Debug */,
+				B933B6CF2ED3748A0073FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B933B6D22ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_appTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B933B6D32ED3748A0073FE1C /* Debug */,
+				B933B6D42ED3748A0073FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B933B6D52ED3748A0073FE1C /* Build configuration list for PBXNativeTarget "fuego_appUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B933B6D62ED3748A0073FE1C /* Debug */,
+				B933B6D72ED3748A0073FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B933B69C2ED374890073FE1C /* Project object */;
+}
