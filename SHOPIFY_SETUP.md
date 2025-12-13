@@ -29,6 +29,7 @@ This guide will help you set up Shopify integration with your FUEGO webapp. We'r
 9. Go to **API credentials** tab
 10. Copy the **Storefront access token**
 
+
 ### Optional - Admin API Access Token (for webhooks/inventory):
 1. In the same app, go to **Configuration** tab
 2. Under **Admin API access scopes**, enable needed scopes
