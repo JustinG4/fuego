@@ -2,19 +2,35 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
   Trophy,
   Package,
   Activity,
   Settings,
   TrendingUp,
-  Users,
   ShoppingCart,
   Zap,
   ArrowRight,
   Sparkles,
+  Layers,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 export default function HomePage() {
   const [stats, setStats] = useState({
@@ -64,105 +80,153 @@ export default function HomePage() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-8 text-white">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative overflow-hidden bg-gradient-brand rounded-2xl p-12 text-white"
+      >
         <div className="relative z-10">
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-6 h-6" />
-            <span className="text-sm font-semibold uppercase tracking-wider">Admin Dashboard</span>
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles className="w-6 h-6 animate-pulse" />
+            <span className="text-sm font-bold uppercase tracking-widest">Admin Dashboard</span>
           </div>
-          <h1 className="text-5xl font-bold mb-3">
+          <h1 className="text-6xl font-bold mb-4 tracking-tight">
             Welcome to UnlockEngine
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl">
+          <p className="text-xl text-white/90 max-w-3xl leading-relaxed">
             Transform your business with milestone-driven commerce. Configure achievements, connect products, and drive engagement.
           </p>
         </div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        {/* Gradient orbs */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-      </div>
+      </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
-          title="Active Milestones"
-          value={stats.loading ? '...' : stats.milestones.toString()}
-          change={`${stats.tiers} tiers`}
-          icon={<Trophy className="w-6 h-6" />}
-          gradient="from-blue-500 to-blue-600"
-        />
-        <StatCard
-          title="Products"
-          value={stats.loading ? '...' : stats.products.toString()}
-          change="In catalog"
-          icon={<Package className="w-6 h-6" />}
-          gradient="from-green-500 to-emerald-600"
-        />
-        <StatCard
-          title="Metrics"
-          value={stats.loading ? '...' : stats.metrics.toString()}
-          change="Active tracking"
-          icon={<Activity className="w-6 h-6" />}
-          gradient="from-purple-500 to-purple-600"
-        />
-        <StatCard
-          title="Database"
-          value="Live"
-          change="Connected to Supabase ✅"
-          icon={<TrendingUp className="w-6 h-6" />}
-          gradient="from-orange-500 to-red-500"
-        />
-      </div>
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
+        <motion.div variants={item}>
+          <StatCard
+            title="Active Milestones"
+            value={stats.loading ? '...' : stats.milestones.toString()}
+            change={`${stats.tiers} tiers configured`}
+            icon={<Trophy className="w-6 h-6" />}
+            trend="up"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <StatCard
+            title="Products"
+            value={stats.loading ? '...' : stats.products.toString()}
+            change="In catalog"
+            icon={<Package className="w-6 h-6" />}
+            trend="up"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <StatCard
+            title="Active Metrics"
+            value={stats.loading ? '...' : stats.metrics.toString()}
+            change="Tracking enabled"
+            icon={<Activity className="w-6 h-6" />}
+            trend="neutral"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <StatCard
+            title="System Status"
+            value="Live"
+            change="Connected ✅"
+            icon={<TrendingUp className="w-6 h-6" />}
+            trend="up"
+          />
+        </motion.div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <QuickActionCard
-          title="Milestones"
-          description="Configure achievement requirements and tiers"
-          icon={<Trophy className="w-8 h-8" />}
-          href="/milestones"
-          color="bg-blue-500"
-        />
-        <QuickActionCard
-          title="Products"
-          description="Manage products and unlock conditions"
-          icon={<Package className="w-8 h-8" />}
-          href="/products"
-          color="bg-green-500"
-        />
-        <QuickActionCard
-          title="Metrics"
-          description="Define tracking metrics and data sources"
-          icon={<Activity className="w-8 h-8" />}
-          href="/metrics"
-          color="bg-purple-500"
-        />
-        <QuickActionCard
-          title="Shopify Integration"
-          description="Connect your Shopify store"
-          icon={<ShoppingCart className="w-8 h-8" />}
-          href="/settings/shopify"
-          color="bg-orange-500"
-        />
-        <QuickActionCard
-          title="Domain Config"
-          description="Configure your business vertical"
-          icon={<Zap className="w-8 h-8" />}
-          href="/settings/domain"
-          color="bg-pink-500"
-        />
-        <QuickActionCard
-          title="Settings"
-          description="General platform settings"
-          icon={<Settings className="w-8 h-8" />}
-          href="/settings"
-          color="bg-gray-500"
-        />
-      </div>
+      {/* Quick Actions */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Milestones"
+            description="Configure achievement requirements and unlock tiers"
+            icon={<Trophy className="w-8 h-8" />}
+            href="/milestones"
+            badge="Core"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Products"
+            description="Manage products and unlock conditions"
+            icon={<Package className="w-8 h-8" />}
+            href="/products"
+            badge="Core"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Metrics"
+            description="Define tracking metrics and data sources"
+            icon={<Activity className="w-8 h-8" />}
+            href="/metrics"
+            badge="Core"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Shopify Integration"
+            description="Connect and sync your Shopify store"
+            icon={<ShoppingCart className="w-8 h-8" />}
+            href="/settings/shopify"
+            badge="Integration"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Domain Config"
+            description="Configure your business vertical"
+            icon={<Zap className="w-8 h-8" />}
+            href="/settings/domain"
+            badge="Setup"
+          />
+        </motion.div>
+        <motion.div variants={item}>
+          <QuickActionCard
+            title="Settings"
+            description="General platform configuration"
+            icon={<Settings className="w-8 h-8" />}
+            href="/settings"
+            badge="System"
+          />
+        </motion.div>
+      </motion.div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          Getting Started
-        </h2>
-        <ol className="space-y-4">
+      {/* Getting Started Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="card-elevated"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-gradient-brand rounded-lg flex items-center justify-center">
+            <Layers className="w-5 h-5 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-white">
+            Getting Started
+          </h2>
+        </div>
+        <div className="space-y-5">
           <Step
             number={1}
             title="Configure Your Domain"
@@ -189,12 +253,12 @@ export default function HomePage() {
           />
           <Step
             number={5}
-            title="Deploy"
+            title="Deploy to Production"
             description="Launch your customer-facing app and start unlocking!"
             href="/settings/deploy"
           />
-        </ol>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
@@ -204,35 +268,38 @@ function StatCard({
   value,
   change,
   icon,
-  gradient,
+  trend,
 }: {
   title: string;
   value: string;
   change: string;
   icon: React.ReactNode;
-  gradient: string;
+  trend: 'up' | 'down' | 'neutral';
 }) {
+  const trendColors = {
+    up: 'text-emerald-400',
+    down: 'text-red-400',
+    neutral: 'text-brand-muted',
+  };
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden group">
-      <div className="p-6">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              {title}
-            </p>
-            <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
-              {value}
-            </p>
-            <p className="mt-1 text-xs text-green-600 dark:text-green-400 font-medium">
-              {change}
-            </p>
-          </div>
-          <div className={`bg-gradient-to-br ${gradient} rounded-lg p-3 text-white group-hover:scale-110 transition-transform duration-200`}>
-            {icon}
-          </div>
+    <div className="stat-card group">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-brand-muted uppercase tracking-wide">
+            {title}
+          </p>
+          <p className="mt-3 text-4xl font-bold text-white">
+            {value}
+          </p>
+        </div>
+        <div className="bg-gradient-brand rounded-xl p-3 text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+          {icon}
         </div>
       </div>
-      <div className={`h-1 bg-gradient-to-r ${gradient}`}></div>
+      <p className={`text-sm font-medium ${trendColors[trend]}`}>
+        {change}
+      </p>
     </div>
   );
 }
@@ -242,29 +309,35 @@ function QuickActionCard({
   description,
   icon,
   href,
-  color,
+  badge,
 }: {
   title: string;
   description: string;
   icon: React.ReactNode;
   href: string;
-  color: string;
+  badge: string;
 }) {
   return (
-    <Link
-      href={href}
-      className="group block bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 p-6 border border-gray-100 dark:border-gray-700 hover:border-indigo-200 dark:hover:border-indigo-800"
-    >
-      <div className={`${color} rounded-xl p-3 text-white w-fit mb-4 group-hover:scale-110 transition-transform duration-200`}>
-        {icon}
+    <Link href={href} className="group block">
+      <div className="card h-full hover:border-primary-500 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300">
+        <div className="flex items-start justify-between mb-4">
+          <div className="bg-gradient-brand rounded-xl p-3 text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+            {icon}
+          </div>
+          <span className="badge-primary text-xs">
+            {badge}
+          </span>
+        </div>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-xl font-bold text-white">
+            {title}
+          </h3>
+          <ArrowRight className="w-5 h-5 text-brand-muted group-hover:text-primary-400 group-hover:translate-x-1 transition-all duration-300" />
+        </div>
+        <p className="text-brand-muted text-sm leading-relaxed">
+          {description}
+        </p>
       </div>
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          {title}
-        </h3>
-        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all duration-200" />
-      </div>
-      <p className="text-gray-600 dark:text-gray-400 text-sm">{description}</p>
     </Link>
   );
 }
@@ -281,22 +354,25 @@ function Step({
   href: string;
 }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 group">
       <div className="flex-shrink-0">
-        <div className="w-8 h-8 bg-brand-500 text-white rounded-full flex items-center justify-center font-bold">
+        <div className="w-10 h-10 bg-gradient-brand text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
           {number}
         </div>
       </div>
-      <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="flex-1">
+        <h3 className="text-lg font-bold text-white mb-1">
           {title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">{description}</p>
+        <p className="text-brand-muted text-sm leading-relaxed mb-2">
+          {description}
+        </p>
         <Link
           href={href}
-          className="text-brand-500 hover:text-brand-600 font-medium mt-2 inline-block"
+          className="text-primary-400 hover:text-primary-300 font-semibold text-sm inline-flex items-center gap-1 group/link transition-colors"
         >
-          Configure →
+          Configure
+          <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
         </Link>
       </div>
     </div>

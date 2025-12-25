@@ -10,6 +10,7 @@ import {
   Settings,
   Menu,
   X,
+  Sparkles,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -26,16 +27,24 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow">
+    <nav className="bg-brand-dark border-b border-brand-border backdrop-blur-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-2xl font-bold text-brand-500">
-                UnlockEngine
+              <Link href="/" className="flex items-center gap-2 group">
+                <div className="w-8 h-8 bg-gradient-brand rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-2xl font-bold text-gradient">
+                  UnlockEngine
+                </span>
+                <span className="px-2 py-0.5 text-xs font-bold bg-primary-500/20 text-primary-300 rounded border border-primary-500/30">
+                  Admin
+                </span>
               </Link>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-10 sm:flex sm:space-x-2">
               {navigation.map((item) => {
                 const isActive = pathname === item.href;
                 const Icon = item.icon;
@@ -43,10 +52,10 @@ export function Navigation() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                       isActive
-                        ? 'border-brand-500 text-gray-900 dark:text-white'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                        ? 'bg-gradient-brand text-white shadow-lg shadow-primary-500/30'
+                        : 'text-white/60 hover:text-white hover:bg-brand-surface'
                     }`}
                   >
                     <Icon className="w-4 h-4 mr-2" />
@@ -59,7 +68,7 @@ export function Navigation() {
           <div className="flex items-center sm:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-white/60 hover:text-white hover:bg-brand-surface transition-all"
             >
               {mobileMenuOpen ? (
                 <X className="block h-6 w-6" />
@@ -72,8 +81,8 @@ export function Navigation() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="sm:hidden">
-          <div className="pt-2 pb-3 space-y-1">
+        <div className="sm:hidden border-t border-brand-border bg-brand-surface">
+          <div className="pt-2 pb-3 space-y-1 px-4">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
@@ -81,17 +90,15 @@ export function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                  className={`flex items-center px-4 py-3 rounded-lg text-base font-semibold transition-all ${
                     isActive
-                      ? 'border-brand-500 text-brand-700 bg-brand-50 dark:bg-gray-700 dark:text-white'
-                      : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-700'
+                      ? 'bg-gradient-brand text-white shadow-lg'
+                      : 'text-white/60 hover:text-white hover:bg-brand-dark'
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <div className="flex items-center">
-                    <Icon className="w-4 h-4 mr-3" />
-                    {item.name}
-                  </div>
+                  <Icon className="w-5 h-5 mr-3" />
+                  {item.name}
                 </Link>
               );
             })}

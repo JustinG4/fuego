@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Package, Lock, Unlock, ShoppingCart, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Package, Lock, Unlock, ShoppingCart } from 'lucide-react';
 import { supabase, getCurrentTenant } from '@/lib/supabase';
 
 interface Product {
@@ -47,10 +48,10 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading products...</p>
+          <div className="w-12 h-12 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-400 font-light">Loading products...</p>
         </div>
       </div>
     );
@@ -63,71 +64,68 @@ export default function ProductsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-16">
+      <div className="container-custom">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl md:text-6xl font-light text-white mb-4 tracking-tight">
             Shop Products
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <p className="text-xl text-gray-400 font-light max-w-3xl mx-auto">
             Exclusive products unlocked through your achievements
           </p>
-          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-400">
-            <CheckCircle className="w-4 h-4" />
-            <span>Connected to Supabase - Showing real data!</span>
-          </div>
-        </div>
+        </motion.div>
 
         {/* Filter Tags */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-              filter === 'all'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            All Products ({products.length})
-          </button>
-          <button
-            onClick={() => setFilter('unlocked')}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-              filter === 'unlocked'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            Unlocked Only
-          </button>
-          <button
-            onClick={() => setFilter('locked')}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-              filter === 'locked'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            Locked
-          </button>
+        <div className="flex items-center justify-center gap-2 mb-12">
+          {[
+            { value: 'all' as const, label: 'All Products', count: products.length },
+            { value: 'unlocked' as const, label: 'Unlocked', icon: <Unlock className="w-4 h-4" /> },
+            { value: 'locked' as const, label: 'Locked', icon: <Lock className="w-4 h-4" /> }
+          ].map((item) => (
+            <button
+              key={item.value}
+              onClick={() => setFilter(item.value)}
+              className={`px-6 py-2 text-sm font-medium uppercase tracking-wide transition-all duration-300 ${
+                filter === item.value
+                  ? 'bg-primary-500 text-black'
+                  : 'border border-brand-border text-white hover:border-white'
+              } inline-flex items-center gap-2`}
+            >
+              {item.icon}
+              {item.label}
+              {item.count !== undefined && ` (${item.count})`}
+            </button>
+          ))}
         </div>
 
         {/* Products Grid */}
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
-            <Package className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <div className="text-center py-20">
+            <Package className="w-16 h-16 mx-auto text-gray-600 mb-4" />
+            <h3 className="text-xl font-light text-white mb-2">
               No products found
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-400 font-light">
               {filter !== 'all' ? 'Try a different filter' : 'Products will appear here once created'}
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
             ))}
           </div>
         )}
@@ -141,45 +139,46 @@ function ProductCard({ product }: { product: Product }) {
   const imageUrl = product.thumbnail_url || product.images[0] || null;
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group ${
-      isLocked ? 'opacity-75' : ''
-    }`}>
+    <div className="product-card group">
       {/* Image */}
-      <div className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600">
+      <div className="relative aspect-[3/4] bg-brand-gray overflow-hidden">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Package className="w-24 h-24 text-gray-400" />
+            <Package className="w-20 h-20 text-gray-600" />
           </div>
         )}
 
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
         {/* Status Badge */}
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-4 right-4 z-10">
           {isLocked ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500 text-white rounded-lg font-semibold text-sm">
-              <Lock className="w-4 h-4" />
+            <div className="badge-locked flex items-center gap-1">
+              <Lock className="w-3 h-3" />
               Locked
             </div>
           ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500 text-white rounded-lg font-semibold text-sm">
-              <Unlock className="w-4 h-4" />
+            <div className="badge-unlocked flex items-center gap-1">
+              <Unlock className="w-3 h-3" />
               Unlocked
             </div>
           )}
         </div>
 
-        {/* Category Badge */}
+        {/* Category */}
         {product.category && (
-          <div className="absolute top-4 left-4">
-            <div className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white rounded-lg font-semibold text-xs">
+          <div className="absolute top-4 left-4 z-10">
+            <div className="px-2 py-1 bg-black/70 text-white text-xs font-medium uppercase tracking-wide">
               {product.category}
             </div>
           </div>
@@ -187,50 +186,26 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+      <div className="p-4 text-center">
+        <h3 className="text-lg font-light text-white mb-1">
           {product.name}
         </h3>
-
-        {product.description && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-            {product.description}
-          </p>
-        )}
-
-        {/* Price */}
-        <div className="flex items-baseline gap-2 mb-4">
-          <span className="text-2xl font-bold text-gray-900 dark:text-white">
-            ${product.price.toFixed(2)}
-          </span>
+        <p className="text-sm text-gray-400 mb-3">
+          ${product.price.toFixed(2)}
           {product.compare_at_price && (
-            <span className="text-sm text-gray-500 line-through">
+            <span className="ml-2 line-through text-gray-600">
               ${product.compare_at_price.toFixed(2)}
             </span>
           )}
-        </div>
+        </p>
 
-        {/* Locked Message */}
-        {isLocked && product.required_milestone_ids.length > 0 && (
-          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-            <p className="text-sm text-red-700 dark:text-red-300">
-              <span className="font-semibold">Required:</span> Complete {product.required_milestone_ids.length} milestone{product.required_milestone_ids.length !== 1 ? 's' : ''}
-            </p>
-          </div>
-        )}
-
-        {/* Action Button */}
         {isLocked ? (
-          <button
-            disabled
-            className="w-full py-3 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-lg font-semibold cursor-not-allowed"
-          >
-            <Lock className="w-4 h-4 inline mr-2" />
-            Unlock to Purchase
-          </button>
+          <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+            {product.required_milestone_ids.length} Milestone{product.required_milestone_ids.length !== 1 ? 's' : ''} Required
+          </p>
         ) : (
-          <button className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2">
-            <ShoppingCart className="w-4 h-4" />
+          <button className="btn-secondary w-full text-xs py-2">
+            <ShoppingCart className="w-3 h-3 inline mr-2" />
             Add to Cart
           </button>
         )}

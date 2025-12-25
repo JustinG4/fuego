@@ -1,188 +1,193 @@
 'use client';
 
 import Link from 'next/link';
-import { Trophy, Package, Zap, ArrowRight, Target, Flame } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Trophy, Package, Target, Flame, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6">
-              <Zap className="w-4 h-4" />
-              <span className="text-sm font-semibold">Milestone-Driven Commerce</span>
-            </div>
-            <h1 className="text-6xl font-bold mb-6 leading-tight">
-              Earn Your Rewards
+      {/* Hero Section - Fuego-inspired split screen */}
+      <section className="h-screen flex flex-col md:flex-row">
+        {/* Left Side */}
+        <div className="w-full md:w-1/2 relative bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10 text-center px-8"
+          >
+            <h1 className="text-5xl md:text-7xl font-light text-white mb-6 tracking-tight leading-tight">
+              Earn Your <em className="font-normal">Rewards</em>
             </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Complete fitness milestones, unlock exclusive products, and achieve greatness.
-              Your achievements deserve to be rewarded.
+            <p className="text-lg md:text-xl text-white/90 mb-8 font-light max-w-md mx-auto">
+              Complete milestones. Unlock products. Achieve greatness.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/milestones"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
-              >
+            <Link href="/milestones">
+              <button className="btn-primary">
                 View Milestones
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all border border-white/20"
-              >
-                Browse Products
-              </Link>
-            </div>
-          </div>
+              </button>
+            </Link>
+          </motion.div>
         </div>
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+
+        {/* Right Side */}
+        <div className="w-full md:w-1/2 relative bg-gradient-to-br from-secondary-600 to-secondary-700 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative z-10 text-center px-8"
+          >
+            <h2 className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight">
+              Milestone-Driven <em className="font-normal">Commerce</em>
+            </h2>
+            <Link href="/products">
+              <button className="btn-secondary">
+                Browse Products
+              </button>
+            </Link>
+          </motion.div>
+        </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="section bg-brand-dark">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-tight">
               How It Works
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
               Three simple steps to unlock exclusive products
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="inline-flex p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6">
-                <Target className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                1. Choose Your Goal
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Browse milestones and pick challenges that inspire you. From beginner to elite tiers.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-flex p-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-6">
-                <Flame className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                2. Track Progress
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Your fitness data syncs automatically. Watch as you get closer to unlocking rewards.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-flex p-4 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl mb-6">
-                <Package className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                3. Unlock & Shop
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Complete milestones to unlock exclusive, limited-edition products you've earned.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Target className="w-12 h-12" />,
+                title: "Choose Your Goal",
+                description: "Browse milestones and pick challenges that inspire you."
+              },
+              {
+                icon: <Flame className="w-12 h-12" />,
+                title: "Track Progress",
+                description: "Your fitness data syncs automatically."
+              },
+              {
+                icon: <Package className="w-12 h-12" />,
+                title: "Unlock & Shop",
+                description: "Complete milestones to unlock exclusive products."
+              }
+            ].map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="inline-flex p-4 mb-6 text-primary-400">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-medium text-white mb-3 tracking-wide uppercase text-sm">
+                  {step.title}
+                </h3>
+                <p className="text-gray-400 font-light">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Tiers */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      {/* Achievement Tiers */}
+      <section className="section bg-brand-black">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-tight">
               Achievement Tiers
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
               Progress through tiers and unlock premium products
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <TierCard
-              name="SPARK"
-              color="from-orange-400 to-orange-600"
-              level="Beginner"
-              milestones={3}
-            />
-            <TierCard
-              name="FLAME"
-              color="from-red-500 to-red-600"
-              level="Intermediate"
-              milestones={4}
-            />
-            <TierCard
-              name="INFERNO"
-              color="from-red-600 to-red-800"
-              level="Advanced"
-              milestones={3}
-            />
-            <TierCard
-              name="LEGEND"
-              color="from-purple-600 to-purple-800"
-              level="Elite"
-              milestones={2}
-            />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { name: "SPARK", gradient: "tier-spark", count: 3 },
+              { name: "FLAME", gradient: "tier-flame", count: 4 },
+              { name: "INFERNO", gradient: "tier-inferno", count: 3 },
+              { name: "LEGEND", gradient: "tier-legend", count: 2 }
+            ].map((tier, index) => (
+              <motion.div
+                key={tier.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-brand-dark rounded-lg">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-90 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="text-2xl font-light text-white mb-2 tracking-wide">
+                      {tier.name}
+                    </h3>
+                    <p className="text-sm text-white/80 font-medium uppercase tracking-wide">
+                      {tier.count} Milestones
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl mb-8 text-white/90">
-            Join thousands of athletes earning their rewards
-          </p>
-          <Link
-            href="/milestones"
-            className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg"
+      {/* CTA Section */}
+      <section className="section bg-primary-600">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
           >
-            View All Milestones
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 font-light max-w-2xl mx-auto">
+              Join thousands of athletes earning their rewards through achievement
+            </p>
+            <Link href="/milestones">
+              <button className="px-8 py-3 bg-white text-primary-600 font-medium uppercase tracking-wide text-sm hover:bg-gray-100 transition-all duration-300 inline-flex items-center gap-2">
+                View All Milestones
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </motion.div>
         </div>
       </section>
-    </div>
-  );
-}
-
-function TierCard({
-  name,
-  color,
-  level,
-  milestones,
-}: {
-  name: string;
-  color: string;
-  level: string;
-  milestones: number;
-}) {
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group">
-      <div className={`h-32 bg-gradient-to-br ${color} flex items-center justify-center`}>
-        <Trophy className="w-16 h-16 text-white" />
-      </div>
-      <div className="p-6">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-          {name}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">{level}</p>
-        <p className="text-sm text-gray-500 dark:text-gray-500">
-          {milestones} Milestones
-        </p>
-      </div>
     </div>
   );
 }

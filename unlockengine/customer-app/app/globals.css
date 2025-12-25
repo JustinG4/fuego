@@ -4,6 +4,140 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white;
+    @apply bg-brand-black text-white antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Button Styles - Fuego-inspired */
+  .btn-primary {
+    @apply px-8 py-3 bg-primary-500 text-black font-medium uppercase tracking-wide text-sm
+    hover:bg-opacity-90 transition-all duration-300
+    disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 border border-white text-white font-medium uppercase tracking-wide text-sm
+    hover:bg-white hover:text-black transition-all duration-300
+    disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-2 text-white font-medium tracking-wide text-sm
+    hover:text-primary-400 transition-colors duration-300;
+  }
+
+  /* Card Styles - Simplified */
+  .card {
+    @apply bg-brand-dark rounded-lg border border-brand-border p-6
+    transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:border-brand-muted;
+  }
+
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6;
+  }
+
+  /* Product Card - Fuego-inspired */
+  .product-card {
+    @apply bg-brand-dark rounded-lg overflow-hidden
+    transition-all duration-300;
+  }
+
+  /* Milestone Card */
+  .milestone-card {
+    @apply bg-brand-dark rounded-lg border border-brand-border p-6
+    transition-all duration-300;
+  }
+
+  /* Badge Styles - Simplified like Fuego */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wide;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-500 text-black;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-500 text-black;
+  }
+
+  .badge-locked {
+    @apply badge bg-red-500 text-black;
+  }
+
+  .badge-unlocked {
+    @apply badge bg-emerald-500 text-black;
+  }
+
+  /* Progress Bar */
+  .progress-bar {
+    @apply w-full bg-brand-surface rounded-full h-2 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply bg-primary-500 h-full rounded-full transition-all duration-500;
+  }
+
+  /* Hero Section */
+  .hero {
+    @apply min-h-screen flex items-center justify-center bg-brand-black;
+  }
+
+  /* Section */
+  .section {
+    @apply py-16;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Lock Overlay */
+  .lock-overlay {
+    @apply absolute inset-0 bg-black/40
+    flex items-center justify-center
+    transition-opacity duration-300;
+  }
+
+  /* Tier Colors */
+  .tier-spark {
+    @apply from-orange-500 to-yellow-500;
+  }
+
+  .tier-flame {
+    @apply from-red-500 to-orange-600;
+  }
+
+  .tier-inferno {
+    @apply from-red-600 to-red-700;
+  }
+
+  .tier-legend {
+    @apply from-purple-600 to-pink-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
