@@ -44,7 +44,7 @@ Create a comprehensive fitness-driven ecommerce platform that gamifies fashion p
 - [x] Real-time fitness tracking and milestone verification
 - [x] QR code gym check-in system
 - [ ] Counter-culture magnetic flame patching integration & mockup image
-- [ ] Netted Flame Rip Sweats integration & mockup image
+- [x] Netted Flame Rip Sweats integration & mockup image
 - [ ] Comprehensive design spec book with designs, measurements, materials, & sourcing
 - [ ] Custom Prototyping (get clothing item custom created and shipped)
 - [ ] QC and product design iteration
